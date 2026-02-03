@@ -21,10 +21,10 @@ import BlackSpinner from "@/components/Old/Spinners/BlackSpin";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 
 // Replace the SOCKET_URL declaration at the top:
-const SOCKET_URL =
-  typeof window !== "undefined"
-    ? "ws://localhost:3001"
-    : process.env.NEXT_PUBLIC_SOCKET_URL || "ws://localhost:3001";
+const SOCKET_URL = 
+  process.env.NODE_ENV === 'production'
+    ? "https://demo-next-app-production.up.railway.app"
+    : "http://localhost:3001";
 
 let socket: ReturnType<typeof io> | undefined;
 
@@ -5236,3 +5236,4 @@ export default function GamePlayUI({
     </>
   );
 }
+
