@@ -1,0 +1,1086 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /**
+   * grid
+   */
+  --grid-container: 1920px;
+  --grid-content: 1344px;
+
+  /* Compensates for additional grid gutters being included */
+  --grid-margin: calc(48px - var(--grid-gutter));
+  --grid-gutter: 32px;
+  --grid-gap: 32px;
+  --spacing: 8px;
+
+  /* autoprefixer: off */
+  --grid: [margin-start] var(--grid-margin) [container-start] repeat(2, 1fr)
+    [prose-start] repeat(6, 1fr) [prose-end] repeat(2, 1fr) [container-end]
+    var(--grid-margin) [margin-end];
+
+  /**
+   * --spacing isn't * 3 as the gutter is included.
+   * The gutter here is using a gap-x-4 so that plus --spacing is equal to 24px
+   */
+  --grid-6: [margin-start] var(--spacing) [container-start content-start
+    prose-start] repeat(6, minmax(0, 1fr)) [prose-end content-end container-end]
+    var(--spacing) [margin-end];
+
+  --grid-12: [margin-start] calc(var(--spacing) * 2) [container-start]
+    minmax(0, 1fr) [content-start prose-start] repeat(10, minmax(0, 1fr))
+    [prose-end content-end] minmax(0, 1fr) [container-end]
+    calc(var(--spacing) * 2) [margin-end];
+
+  --grid-12-wide: [margin-start] calc(var(--spacing) * 2) [container-start]
+    minmax(0, 1fr) [content-start] minmax(0, 1fr) [prose-start]
+    repeat(8, minmax(0, 1fr)) [prose-end] minmax(0, 1fr) [content-end]
+    minmax(0, 1fr) [container-end] calc(var(--spacing) * 2) [margin-end];
+
+  --grid-16-narrow: [margin-start] calc(var(--grid-margin) - 4px)
+    [container-start] repeat(1, minmax(0, 1fr)) [content-start]
+    repeat(2, minmax(0, 1fr)) [prose-start] repeat(10, minmax(0, 1fr))
+    [prose-end] repeat(2, minmax(0, 1fr)) [content-end]
+    repeat(1, minmax(0, 1fr)) [container-end] calc(var(--grid-margin) - 4px)
+    [margin-end];
+
+  --grid-16: [margin-start] var(--grid-margin) [container-start]
+    repeat(2, minmax(0, 1fr)) [content-start] repeat(2, minmax(0, 1fr))
+    [prose-start] repeat(8, minmax(0, 1fr)) [prose-end]
+    repeat(2, minmax(0, 1fr)) [content-end] repeat(2, minmax(0, 1fr))
+    [container-end] var(--grid-margin) [margin-end];
+
+  /**
+   * Overridable capability for tailwind
+   */
+  --ui-border-opacity-weak: 0.08;
+  --ui-border-opacity-strong: 0.12;
+  --ui-border-color: rgba(117 99 98 / var(--ui-border-opacity-strong));
+  --ui-border-color-hover: rgba(117 99 98 / 0.32);
+  --ui-border-color-strong: rgba(117 99 98 / 0.12);
+  --ui-border-color-strong-hover: rgba(117 99 98 / 0.4);
+  --ui-border-color-weak: rgba(249 243 241 / 0.12);
+  --ui-border-color-weak-hover: rgba(249 243 241 / 0.24);
+
+  --shadow-subtle:
+    0 0 0 1px var(--ui-border-color), 0px 1px 1px -0.5px var(--ui-border-color),
+    0px 2px 3px -1.5px var(--ui-border-color);
+  --shadow-reduced:
+    0 -1px var(--ui-border-color-weak), 0 1px var(--ui-border-color-strong),
+    0 0 0 1px var(--ui-border-color), 0px 1px 1px -0.5px var(--ui-border-color),
+    0px 2px 3px -1.5px var(--ui-border-color),
+    0px 3px 4px -2px var(--ui-border-color);
+  --shadow-reduced-depth:
+    0px 1px 1px -0.5px var(--ui-border-color),
+    0px 2px 3px -1.5px var(--ui-border-color),
+    0px 3px 4px -2px var(--ui-border-color);
+  --shadow-placed: var(--shadow-placed-border), var(--shadow-placed-depth);
+  --shadow-placed-border:
+    0 -1px var(--ui-border-color-weak), 0 1px var(--ui-border-color-strong),
+    0 0 0 1px var(--ui-border-color);
+  --shadow-placed-depth:
+    0 1px 1px -0.5px var(--ui-border-color),
+    0 1px 3px -1.5px var(--ui-border-color),
+    0 2px 4px -2px var(--ui-border-color),
+    0 3px 6px -3px var(--ui-border-color),
+    0 3px 6px -3px var(--ui-border-color),
+    0 6px 9px -4.5px var(--ui-border-color);
+  --shadow-picked: var(--shadow-picked-border), var(--shadow-picked-depth);
+  --shadow-picked-border:
+    0 -1px var(--ui-border-color-weak), 0 1px var(--ui-border-color-strong),
+    0 0 0 1px var(--ui-border-color-hover);
+  --shadow-picked-depth:
+    0 1px 1px -0.5px var(--ui-border-color),
+    0 1px 3px -1.5px var(--ui-border-color),
+    0 2px 4px -2px var(--ui-border-color),
+    0 3px 6px -3px var(--ui-border-color),
+    0 6px 12px -6px var(--ui-border-color),
+    0 12px 18px -9px var(--ui-border-color);
+  --shadow-floating:
+    0 10px 24px -2px rgba(117, 99, 98, 0.12), 0 2px 4px rgba(117, 99, 98, 0.08);
+}
+
+@layer utilities {
+  .button-dandelion {
+    --ui-border-color: theme(colors.dandelion.500);
+    --ui-border-color-weak: theme(colors.dandelion.400);
+    --ui-border-color-strong: theme(colors.dandelion.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(78% 0.186 80.6 / 0);
+    --bg-gradient-strong: oklch(78% 0.186 80.6 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(71.7% 0.18 68.6/ 0.8),
+      inset 0 0 0 1px oklch(87.1% 0.184 95 / 0.6),
+      inset 0 1px 3px oklch(87.1% 0.184 95 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.dandelion.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.dandelion.300"),
+          theme("colors.dandelion.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-dandelion:hover {
+    --ui-border-color: theme(colors.dandelion.600);
+    --ui-border-color-strong: theme(colors.dandelion.800);
+    --bg-gradient-weak: oklch(78% 0.186 80.6 / 0.2);
+    --bg-gradient-strong: oklch(78% 0.186 80.6 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(71.7% 0.18 68.6/ 0.8),
+      inset 0 0 0 1px oklch(87.1% 0.184 95 / 0.6),
+      inset 0 1px 3px oklch(87.1% 0.184 95 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-dandelion:active {
+    --ui-border-color-weak: theme(colors.dandelion.600);
+    --ui-border-color: theme(colors.dandelion.600);
+    --ui-border-color-strong: theme(colors.dandelion.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.dandelion.400");
+    --bg-gradient-strong: theme("colors.dandelion.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.dandelion.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* rio */
+  .button-rio {
+    --ui-border-color: theme(colors.rio.500);
+    --ui-border-color-weak: theme(colors.rio.400);
+    --ui-border-color-strong: theme(colors.rio.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(76.9% 0.152 42.4 / 0);
+    --bg-gradient-strong: oklch(76.9% 0.152 42.4 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(59.8% 0.23 32.8 / 0.8),
+      inset 0 0 0 1px oklch(81.3% 0.121 44.3 / 0.6),
+      inset 0 1px 3px oklch(81.3% 0.121 44.3 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.rio.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.rio.300"),
+          theme("colors.rio.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-rio:hover {
+    --ui-border-color: theme(colors.rio.600);
+    --ui-border-color-strong: theme(colors.rio.800);
+    --bg-gradient-weak: oklch(76.9% 0.152 42.4 / 0.2);
+    --bg-gradient-strong: oklch(76.9% 0.152 42.4 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(59.8% 0.23 32.8 / 0.8),
+      inset 0 0 0 1px oklch(81.3% 0.121 44.3 / 0.6),
+      inset 0 1px 3px oklch(81.3% 0.121 44.3 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-rio:active {
+    --ui-border-color-weak: theme(colors.rio.600);
+    --ui-border-color: theme(colors.rio.600);
+    --ui-border-color-strong: theme(colors.rio.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.rio.400");
+    --bg-gradient-strong: theme("colors.rio.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.rio.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* fern */
+  .button-fern {
+    --ui-border-color: theme(colors.fern.500);
+    --ui-border-color-weak: theme(colors.fern.400);
+    --ui-border-color-strong: theme(colors.fern.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(70.2% 0.202 132 / 0);
+    --bg-gradient-strong: oklch(70.2% 0.202 132 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(54.8% 0.196 138.8 / 0.8),
+      inset 0 0 0 1px oklch(80% 0.18 140 / 0.6),
+      inset 0 1px 3px oklch(80% 0.18 140 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.fern.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.fern.300"),
+          theme("colors.fern.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-fern:hover {
+    --ui-border-color: theme(colors.fern.600);
+    --ui-border-color-strong: theme(colors.fern.800);
+    --bg-gradient-weak: oklch(70.2% 0.202 132 / 0.2);
+    --bg-gradient-strong: oklch(70.2% 0.202 132 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(54.8% 0.196 138.8 / 0.8),
+      inset 0 0 0 1px oklch(80% 0.18 140 / 0.6),
+      inset 0 1px 3px oklch(80% 0.18 140 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-fern:active {
+    --ui-border-color-weak: theme(colors.fern.600);
+    --ui-border-color: theme(colors.fern.600);
+    --ui-border-color-strong: theme(colors.fern.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.fern.400");
+    --bg-gradient-strong: theme("colors.fern.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.fern.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* cornflour */
+  .button-cornflour {
+    --ui-border-color: theme(colors.cornflour.500);
+    --ui-border-color-weak: theme(colors.cornflour.400);
+    --ui-border-color-strong: theme(colors.cornflour.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(82% 0.15 250 / 0);
+    --bg-gradient-strong: oklch(82% 0.15 250 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(64% 0.18 245 / 0.8),
+      inset 0 0 0 1px oklch(87% 0.12 240 / 0.6),
+      inset 0 1px 3px oklch(87% 0.12 240 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.cornflour.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.cornflour.300"),
+          theme("colors.cornflour.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-cornflour:hover {
+    --ui-border-color: theme(colors.cornflour.600);
+    --ui-border-color-strong: theme(colors.cornflour.800);
+    --bg-gradient-weak: oklch(82% 0.15 250 / 0.2);
+    --bg-gradient-strong: oklch(82% 0.15 250 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(64% 0.18 245 / 0.8),
+      inset 0 0 0 1px oklch(87% 0.12 240 / 0.6),
+      inset 0 1px 3px oklch(87% 0.12 240 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-cornflour:active {
+    --ui-border-color-weak: theme(colors.cornflour.600);
+    --ui-border-color: theme(colors.cornflour.600);
+    --ui-border-color-strong: theme(colors.cornflour.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.cornflour.400");
+    --bg-gradient-strong: theme("colors.cornflour.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.cornflour.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* grass */
+  .button-grass {
+    --ui-border-color: theme(colors.grass.500);
+    --ui-border-color-weak: theme(colors.grass.400);
+    --ui-border-color-strong: theme(colors.grass.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(70.2% 0.202 132 / 0);
+    --bg-gradient-strong: oklch(70.2% 0.202 132 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(54.8% 0.196 138.8 / 0.8),
+      inset 0 0 0 1px oklch(80% 0.18 140 / 0.6),
+      inset 0 1px 3px oklch(80% 0.18 140 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.grass.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.grass.300"),
+          theme("colors.grass.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-grass:hover {
+    --ui-border-color: theme(colors.grass.600);
+    --ui-border-color-strong: theme(colors.grass.800);
+    --bg-gradient-weak: oklch(70.2% 0.202 132 / 0.2);
+    --bg-gradient-strong: oklch(70.2% 0.202 132 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(54.8% 0.196 138.8 / 0.8),
+      inset 0 0 0 1px oklch(80% 0.18 140 / 0.6),
+      inset 0 1px 3px oklch(80% 0.18 140 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-grass:active {
+    --ui-border-color-weak: theme(colors.grass.600);
+    --ui-border-color: theme(colors.grass.600);
+    --ui-border-color-strong: theme(colors.grass.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.grass.400");
+    --bg-gradient-strong: theme("colors.grass.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.grass.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* moss */
+  .button-moss {
+    --ui-border-color: theme(colors.moss.500);
+    --ui-border-color-weak: theme(colors.moss.400);
+    --ui-border-color-strong: theme(colors.moss.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(65% 0.18 150 / 0);
+    --bg-gradient-strong: oklch(65% 0.18 150 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(48.8% 0.132 151.5 / 0.8),
+      inset 0 0 0 1px oklch(75% 0.15 152 / 0.6),
+      inset 0 1px 3px oklch(75% 0.15 152 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.moss.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.moss.300"),
+          theme("colors.moss.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-moss:hover {
+    --ui-border-color: theme(colors.moss.600);
+    --ui-border-color-strong: theme(colors.moss.800);
+    --bg-gradient-weak: oklch(65% 0.18 150 / 0.2);
+    --bg-gradient-strong: oklch(65% 0.18 150 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(48.8% 0.132 151.5 / 0.8),
+      inset 0 0 0 1px oklch(75% 0.15 152 / 0.6),
+      inset 0 1px 3px oklch(75% 0.15 152 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-moss:active {
+    --ui-border-color-weak: theme(colors.moss.600);
+    --ui-border-color: theme(colors.moss.600);
+    --ui-border-color-strong: theme(colors.moss.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.moss.400");
+    --bg-gradient-strong: theme("colors.moss.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.moss.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* damarnotukdo */
+  .button-damarnotukdo {
+    --ui-border-color: theme(colors.damarnotukdo.600);
+    --ui-border-color-weak: theme(colors.damarnotukdo.500);
+    --ui-border-color-strong: theme(colors.damarnotukdo.800);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(45% 0.02 0 / 0);
+    --bg-gradient-strong: oklch(45% 0.02 0 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(30% 0.01 0 / 0.8),
+      inset 0 0 0 1px oklch(55% 0.01 0 / 0.6),
+      inset 0 1px 3px oklch(55% 0.01 0 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.damarnotukdo.100");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.damarnotukdo.400"),
+          theme("colors.damarnotukdo.400")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-damarnotukdo:hover {
+    --ui-border-color: theme(colors.damarnotukdo.700);
+    --ui-border-color-strong: theme(colors.damarnotukdo.900);
+    --bg-gradient-weak: oklch(45% 0.02 0 / 0.2);
+    --bg-gradient-strong: oklch(45% 0.02 0 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(30% 0.01 0 / 0.8),
+      inset 0 0 0 1px oklch(55% 0.01 0 / 0.6),
+      inset 0 1px 3px oklch(55% 0.01 0 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-damarnotukdo:active {
+    --ui-border-color-weak: theme(colors.damarnotukdo.700);
+    --ui-border-color: theme(colors.damarnotukdo.700);
+    --ui-border-color-strong: theme(colors.damarnotukdo.800);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.damarnotukdo.500");
+    --bg-gradient-strong: theme("colors.damarnotukdo.500");
+    box-shadow: inset 0 1px 3px -1px theme("colors.damarnotukdo.600");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* tomato */
+  .button-tomato {
+    --ui-border-color: theme(colors.tomato.500);
+    --ui-border-color-weak: theme(colors.tomato.400);
+    --ui-border-color-strong: theme(colors.tomato.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(85% 0.15 25 / 0);
+    --bg-gradient-strong: oklch(85% 0.15 25 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(70% 0.18 20 / 0.8),
+      inset 0 0 0 1px oklch(90% 0.12 15 / 0.6),
+      inset 0 1px 3px oklch(90% 0.12 15 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.tomato.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.tomato.300"),
+          theme("colors.tomato.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-tomato:hover {
+    --ui-border-color: theme(colors.tomato.600);
+    --ui-border-color-strong: theme(colors.tomato.800);
+    --bg-gradient-weak: oklch(85% 0.15 25 / 0.2);
+    --bg-gradient-strong: oklch(85% 0.15 25 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(70% 0.18 20 / 0.8),
+      inset 0 0 0 1px oklch(90% 0.12 15 / 0.6),
+      inset 0 1px 3px oklch(90% 0.12 15 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-tomato:active {
+    --ui-border-color-weak: theme(colors.tomato.600);
+    --ui-border-color: theme(colors.tomato.600);
+    --ui-border-color-strong: theme(colors.tomato.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.tomato.400");
+    --bg-gradient-strong: theme("colors.tomato.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.tomato.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* lavender */
+  .button-lavender {
+    --ui-border-color: theme(colors.lavender.500);
+    --ui-border-color-weak: theme(colors.lavender.400);
+    --ui-border-color-strong: theme(colors.lavender.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(82.7% 0.141 337 / 0);
+    --bg-gradient-strong: oklch(82.7% 0.141 337 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(70% 0.15 300 / 0.8),
+      inset 0 0 0 1px oklch(85% 0.12 320 / 0.6),
+      inset 0 1px 3px oklch(85% 0.12 320 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.lavender.800");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.lavender.300"),
+          theme("colors.lavender.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-lavender:hover {
+    --ui-border-color: theme(colors.lavender.600);
+    --ui-border-color-strong: theme(colors.lavender.800);
+    --bg-gradient-weak: oklch(82.7% 0.141 337 / 0.2);
+    --bg-gradient-strong: oklch(82.7% 0.141 337 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(70% 0.15 300 / 0.8),
+      inset 0 0 0 1px oklch(85% 0.12 320 / 0.6),
+      inset 0 1px 3px oklch(85% 0.12 320 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-lavender:active {
+    --ui-border-color-weak: theme(colors.lavender.600);
+    --ui-border-color: theme(colors.lavender.600);
+    --ui-border-color-strong: theme(colors.lavender.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.lavender.400");
+    --bg-gradient-strong: theme("colors.lavender.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.lavender.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  /* magenta */
+  .button-magenta {
+    --ui-border-color: theme(colors.magenta.500);
+    --ui-border-color-weak: theme(colors.magenta.400);
+    --ui-border-color-strong: theme(colors.magenta.700);
+    --gradient-direction: bottom;
+    --bg-gradient-weak: oklch(82.7% 0.141 337 / 0);
+    --bg-gradient-strong: oklch(82.7% 0.141 337 / 0.2);
+    border: 1px solid transparent;
+    position: relative;
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(70% 0.15 320 / 0.8),
+      inset 0 0 0 1px oklch(85.6% 0.109 339.7 / 0.6),
+      inset 0 1px 3px oklch(85.6% 0.109 339.7 / 0.5),
+      var(--shadow-placed-depth);
+    color: theme("colors.magenta.700");
+    border-radius: theme("borderRadius.sm");
+    padding: theme("padding[3.5]") theme("padding.8");
+
+    background:
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--bg-gradient-weak),
+          var(--bg-gradient-strong)
+        ),
+      padding-box
+        linear-gradient(
+          to var(--gradient-direction),
+          theme("colors.magenta.300"),
+          theme("colors.magenta.300")
+        ),
+      border-box
+        linear-gradient(
+          to var(--gradient-direction),
+          var(--ui-border-color) 50%,
+          var(--ui-border-color-strong)
+        );
+
+    transition: box-shadow 0.2s ease;
+  }
+
+  .button-magenta:hover {
+    --ui-border-color: theme(colors.magenta.600);
+    --ui-border-color-strong: theme(colors.magenta.700);
+    --bg-gradient-weak: oklch(82.7% 0.141 337 / 0.2);
+    --bg-gradient-strong: oklch(82.7% 0.141 337 / 0.4);
+
+    box-shadow:
+      inset 0 -2px 4px -2px oklch(70% 0.15 320 / 0.8),
+      inset 0 0 0 1px oklch(85.6% 0.109 339.7 / 0.6),
+      inset 0 1px 3px oklch(85.6% 0.109 339.7 / 0.5),
+      var(--shadow-picked-depth);
+  }
+
+  .button-magenta:active {
+    --ui-border-color-weak: theme(colors.magenta.600);
+    --ui-border-color: theme(colors.magenta.600);
+    --ui-border-color-strong: theme(colors.magenta.700);
+    --gradient-direction: top;
+    --bg-gradient-weak: theme("colors.magenta.400");
+    --bg-gradient-strong: theme("colors.magenta.400");
+    box-shadow: inset 0 1px 3px -1px theme("colors.magenta.500");
+
+    span {
+      display: block;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+
+  .sl-r {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .slj-r {
+    stroke-linejoin: round;
+  }
+
+  .sl-s {
+    stroke-linejoin: round;
+    stroke-linecap: square;
+  }
+
+  .font-variation-medium {
+    font-variation-settings:
+      "wdth" 100,
+      "wght" 800;
+  }
+
+  .font-variation-bold {
+    font-variation-settings:
+      "wdth" 100,
+      "wght" 700;
+  }
+
+  .font-variation-extrabold {
+    font-variation-settings:
+      "wdth" 100,
+      "wght" 750;
+  }
+
+  .col-margin {
+    grid-column-start: margin-start;
+    grid-column-end: margin-end;
+  }
+
+  .col-container {
+    grid-column-start: container-start;
+    grid-column-end: container-end;
+  }
+
+  .bg-rule {
+    background-image: url('data:image/svg+xml,<svg width="20" height="2" viewBox="0 0 20 2" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1H19" stroke="%23CBBAB7" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 8"/></svg>');
+  }
+
+  .font-variation-bold {
+    font-variation-settings:
+      "wdth" 100,
+      "wght" 700;
+  }
+
+  .font-variation-extrabold {
+    font-variation-settings:
+      "wdth" 100,
+      "wght" 750;
+  }
+
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    grid-template-rows: masonry;
+    align-tracks: end, start, end, space-between;
+  }
+
+  .drop-shadow-placed {
+    filter: drop-shadow(0px 8px 12px rgba(117, 99, 98, 0.12))
+      drop-shadow(0px 3px 4px rgba(117, 99, 98, 0.12));
+  }
+
+  .frame {
+    border-style: solid;
+    border-width: 2px;
+    border-image-repeat: round;
+  }
+
+  .frame-40 {
+    border-image-source: url("/images/rounded-border-40px.svg");
+    border-image-slice: 46.75324675%;
+    border-image-width: 4.5rem;
+  }
+
+  .frame-24 {
+    border-image-source: url("/images/rounded-border-24px.svg");
+    border-image-slice: 46.75324675%;
+    border-image-width: 4.5rem;
+  }
+
+  .frame-16 {
+    border-image-source: url("/images/rounded-border-16px.svg");
+    border-image-slice: 46.75324675%;
+    border-image-width: 4.5rem;
+  }
+
+  .frame-outset-top-sm {
+    border-image-outset: 1.875rem 0 0;
+  }
+
+  .frame-outset-top-md {
+    border-image-outset: 2.625rem 0 0;
+  }
+
+  .frame-outset-top {
+    border-image-outset: 3.375rem 0 0;
+  }
+}
+
+.layout {
+  grid-template-columns: var(--grid-6);
+
+  @screen sm {
+    grid-template-columns: var(--grid-12);
+  }
+
+  @screen md {
+    grid-template-columns: var(--grid-12-wide);
+  }
+
+  @screen xl {
+    grid-template-columns: var(--grid-16-narrow);
+  }
+
+  @screen 2xl {
+    grid-template-columns: var(--grid-16);
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+  to {
+    opacity: 0;
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+}
+
+@keyframes opened-first {
+  from {
+    transform: translate3d(2px, 18px, 0);
+  }
+  50% {
+    transform: translate3d(2px, 11px, 0);
+  }
+  to {
+    transform: translate3d(2px, 11px, 0) rotate(-45deg);
+  }
+}
+
+@keyframes opened-last {
+  from {
+    transform: translate3d(2px, 4px, 0);
+  }
+  50% {
+    transform: translate3d(2px, 11px, 0);
+  }
+  to {
+    transform: translate3d(2px, 11px, 0) rotate(45deg);
+  }
+}
+
+@keyframes closed-first {
+  from {
+    transform: translate3d(2px, 11px, 0) rotate(-45deg);
+  }
+  50% {
+    transform: translate3d(2px, 11px, 0);
+  }
+  to {
+    transform: translate3d(2px, 18px, 0);
+  }
+}
+
+@keyframes closed-last {
+  from {
+    transform: translate3d(2px, 11px, 0) rotate(45deg);
+  }
+  50% {
+    transform: translate3d(2px, 11px, 0);
+  }
+  to {
+    transform: translate3d(2px, 4px, 0);
+  }
+}
+
+@keyframes opened-middle {
+  to {
+    transform: translate3d(4px, 11px, 0) scale3d(0, 0, 0);
+  }
+}
+
+@keyframes closed-middle {
+  to {
+    transform: translate3d(4px, 11px, 0) scale3d(1, 1, 1);
+  }
+}
+
+.toggle-nav span > span:nth-of-type(2) {
+  animation: closed-middle 200ms ease-out both;
+}
+
+.toggle-nav span > span {
+  transform-origin: center center;
+}
+
+.toggle-nav span > span:first-child {
+  animation: closed-first 200ms ease-out both;
+  transform: translate3d(2px, 18px, 0);
+}
+
+.toggle-nav span > span:nth-of-type(2) {
+  animation: closed-middle 200ms ease-out both;
+  transform: translate3d(4px, 11px, 0);
+}
+
+.toggle-nav span > span:last-child {
+  animation: closed-last 200ms ease-out both;
+}
+
+.toggle-nav[data-state="open"] span > span {
+  transition:
+    top 200ms,
+    bottom 200ms,
+    transform 400ms 200ms ease-in;
+}
+
+.toggle-nav[data-state="open"] span > span:first-child {
+  animation: opened-first 200ms ease-out both;
+}
+
+.toggle-nav[data-state="open"] span > span:nth-of-type(2) {
+  animation: opened-middle 200ms 60ms ease-out both;
+  transform: translate3d(4px, 11px, 0) scale3d(0, 0, 0);
+}
+
+.toggle-nav[data-state="open"] span > span:last-child {
+  animation: opened-last 200ms ease-out both;
+}
+
+.nav-content {
+  position: relative;
+  width: 100%;
+  transform-origin: 0 0;
+  height: var(--radix-navigation-menu-viewport-height);
+}
+
+.nav-viewport[data-state="open"] {
+  transform-origin: 50% 0;
+  animation: show 200ms ease-out;
+}
+
+.nav-viewport[data-state="closed"] {
+  transform-origin: 50% 0;
+  animation: hide 200ms ease-in;
+}
+
+.column-categories li:not(:first-child):not(:nth-of-type(2)) {
+  border-top: 1px solid theme("colors.neutral-01.250");
+}
+
+.list-categories li:not(:first-child) {
+  border-top: 1px solid theme("colors.neutral-01.250");
+}
+
+.image-stack img {
+  transition: 0.2s;
+}
+
+.image-stack img:hover ~ img,
+.image-stack img:focus ~ img {
+  transform: translate3d(0, 20rem, 0);
+}
