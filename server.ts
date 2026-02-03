@@ -521,7 +521,8 @@ const io = new IOServer(server, {
   path: "/socket.io/",
   cors: {
     origin: [
-      "*"
+      "https://demo-next-app-production.up.railway.app",
+      "http://localhost:3000",  // For local development
     ],
     credentials: true,
     methods: ["GET", "POST"]
@@ -2481,4 +2482,5 @@ setInterval(() => {
 server.listen(3001, () => {
   console.log("🚀 Chess Socket Server running on port 3001");
   console.log("📊 Supabase connected:", !!supabaseUrl);
+
 });
