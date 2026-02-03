@@ -2,12 +2,12 @@
   "name": "ramicoin-com",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+   "scripts": {
     "dev:server": "PORT=3001 tsx server.ts",
     "dev:client": "next dev",
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run dev:server\" \"npm run dev:client\"",
     "build": "next build",
-    "start": "NODE_ENV=production node server.ts",
+    "start": "NODE_ENV=production node .next/standalone/server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -80,6 +80,7 @@
     "typescript": "^5"
   }
 }
+
 
 
 
