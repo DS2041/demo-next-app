@@ -1,0 +1,1189 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_hostFeeWallet",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "_gameServer", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "AdminAdded",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "admin",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339"
+  },
+  {
+    "name": "AdminRemoved",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "admin",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0xa3b62bc36326052d97ea62d63c3d60308ed4c3ea8ac079dd8499f1e9c4f80c0f"
+  },
+  {
+    "name": "CreatorWithdrawn",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "creator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x90a3afaf972e8d51127fb5529b0f16d3961df69ff4585f619a687b0ca447065b"
+  },
+  {
+    "name": "GameCompleted",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "winner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "winnerAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "hostFee",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x62ad5b276caba5f9533f7026e4b485b0dd915835e983f77e3bfe3ed15b88e5a3"
+  },
+  {
+    "name": "GameDraw",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "creator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "accepter",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "refundAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x9cee8d87f29ca16875fd53f2d5b8e3f27119185cf2646ddc565e45fc99631f87"
+  },
+  {
+    "name": "GameServerUpdated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "oldServer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newServer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x14347d651dd2c4ec11d08b36e1fe7754ff06eb1b335d8a34e66efe979346071b"
+  },
+  {
+    "name": "OrderAccepted",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "accepter",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0xa3a9d59445e437d97cac53692b666afef6c152b0642edd206bde8472f387e59a"
+  },
+  {
+    "name": "OrderCancelled",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "creator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0xc0362da6f2ff36b382b34aec0814f6b3cdf89f5ef282a1d1f114d0c0b036d596"
+  },
+  {
+    "name": "OrderCreated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "creator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "expiresAt",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "roomCode",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x1fd890378764ea04df53c39008684b6a5c8f6b93265e22a6d2045db4fcd68a02"
+  },
+  {
+    "name": "OrderExpired",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x1ad308dc7017610c82d08084545f7176df5e2f08f078c3c8f8926cd7e5555514"
+  },
+  {
+    "name": "OwnershipTransferred",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
+  },
+  {
+    "name": "Paused",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258"
+  },
+  {
+    "name": "RoomCodeLinked",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "roomCode",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x4b2699a69340c5f7d789a7c619230817178a682f731d956babe890762aae87d2"
+  },
+  {
+    "name": "TokenAdded",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "minBet",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0xf4c563a3ea86ff1f4275e8c207df0375a51963f2b831b7bf4da8be938d92876c"
+  },
+  {
+    "name": "TokenGlobalStatsUpdated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "totalVolume",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalGames",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x044d60f912643bad8479b33fe36d7b47d3fe62123471741d761c42eb6aac793e"
+  },
+  {
+    "name": "TokenRemoved",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x4c910b69fe65a61f7531b9c5042b2329ca7179c77290aa7e2eb3afa3c8511fd3"
+  },
+  {
+    "name": "TokenStatsUpdated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x1cc7e50fde52612318a787d05bbcf1a884aa9d656ba71c9b44e90a0ba9279fc8"
+  },
+  {
+    "name": "Unpaused",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa"
+  },
+  {
+    "name": "UserStatsUpdated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0x69b0355c529b4a4b83ab98381a85356f688afb9b77cd31cff8268d3e2f85084f"
+  },
+  {
+    "name": "WinnerDeclared",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "winner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "proof",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false,
+    "signature": "0xc52ffa7b8c7a266c0eefd910cc1907252e2c4ba9c21e3b69171bc88a3e524019"
+  },
+  {
+    "name": "DEFAULT_MINIMUM_BET",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "value": "1000000000000000000",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0xa0b3dda1",
+    "stateMutability": "view"
+  },
+  {
+    "name": "DRAW_ADDRESS",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "value": "0x6F09eF95af0B49863225cFabA6875d9e6077fa77",
+        "internalType": "address"
+      }
+    ],
+    "constant": true,
+    "signature": "0x96f3c794",
+    "stateMutability": "view"
+  },
+  {
+    "name": "HOST_FEE_PERCENT",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "value": "10",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0x3769bad5",
+    "stateMutability": "view"
+  },
+  {
+    "name": "ORDER_EXPIRY_TIME",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "value": "172800",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0x95c3c6ed",
+    "stateMutability": "view"
+  },
+  {
+    "name": "WINNER_SHARE_PERCENT",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "value": "90",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0x21255bc7",
+    "stateMutability": "view"
+  },
+  {
+    "name": "acceptOrder",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "signature": "0xef18e9ed",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "addAdmin",
+    "type": "function",
+    "inputs": [
+      { "name": "_admin", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "signature": "0x70480275",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "addSupportedToken",
+    "type": "function",
+    "inputs": [
+      { "name": "_token", "type": "address", "internalType": "address" },
+      { "name": "_minBet", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "signature": "0x4d8e3d3b",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "admins",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "constant": true,
+    "signature": "0x429b62e5",
+    "stateMutability": "view"
+  },
+  {
+    "name": "cancelOrder",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "signature": "0x514fcac7",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "completeGame",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "signature": "0xbf51d8c8",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "createOrder",
+    "type": "function",
+    "inputs": [
+      { "name": "_token", "type": "address", "internalType": "address" },
+      { "name": "_amount", "type": "uint256", "internalType": "uint256" },
+      { "name": "_roomCode", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [],
+    "signature": "0x17fd7471",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "declareWinner",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" },
+      { "name": "_winner", "type": "address", "internalType": "address" },
+      { "name": "_proof", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [],
+    "signature": "0x4e75ed61",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "gameOrders",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [
+      { "name": "orderId", "type": "uint256", "internalType": "uint256" },
+      { "name": "creator", "type": "address", "internalType": "address" },
+      { "name": "token", "type": "address", "internalType": "address" },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" },
+      { "name": "createdAt", "type": "uint256", "internalType": "uint256" },
+      { "name": "expiresAt", "type": "uint256", "internalType": "uint256" },
+      { "name": "accepter", "type": "address", "internalType": "address" },
+      { "name": "winner", "type": "address", "internalType": "address" },
+      { "name": "status", "type": "uint8", "internalType": "uint8" },
+      { "name": "creatorWithdrawn", "type": "bool", "internalType": "bool" },
+      { "name": "accepterWithdrawn", "type": "bool", "internalType": "bool" },
+      { "name": "roomCode", "type": "string", "internalType": "string" }
+    ],
+    "constant": true,
+    "signature": "0x520dfdbb",
+    "stateMutability": "view"
+  },
+  {
+    "name": "gameProofs",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
+    "constant": true,
+    "signature": "0x7424c804",
+    "stateMutability": "view"
+  },
+  {
+    "name": "gameResolved",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "constant": true,
+    "signature": "0x1fa07967",
+    "stateMutability": "view"
+  },
+  {
+    "name": "gameServer",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "value": "0xEe4B5bb0FfA3bae8A1F6EAA8291A668693e52f6e",
+        "internalType": "address"
+      }
+    ],
+    "constant": true,
+    "signature": "0x29cd564c",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getActiveOrders",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256[]",
+        "value": [],
+        "internalType": "uint256[]"
+      }
+    ],
+    "constant": true,
+    "signature": "0x0086e68b",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getGameResultType",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "uint8", "internalType": "uint8" }],
+    "constant": true,
+    "signature": "0x4afd868b",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getGlobalStats",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "allTimeGamesHosted",
+        "type": "uint256",
+        "value": {
+          "0": "0",
+          "1": "0",
+          "2": "0",
+          "3": "0",
+          "4": "0",
+          "5": "0",
+          "allTimeGamesHosted": "0",
+          "totalRevenueVolume": "0",
+          "allTimeGamesExpired": "0",
+          "allTimeGamesCancelled": "0",
+          "allTimeGamesCompleted": "0",
+          "totalProfitsGenerated": "0"
+        },
+        "internalType": "uint256"
+      },
+      {
+        "name": "allTimeGamesCompleted",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "allTimeGamesExpired",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "allTimeGamesCancelled",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalRevenueVolume",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalProfitsGenerated",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0x6b4169c3",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getOrderDetails",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      { "name": "orderId", "type": "uint256", "internalType": "uint256" },
+      { "name": "creator", "type": "address", "internalType": "address" },
+      { "name": "token", "type": "address", "internalType": "address" },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" },
+      { "name": "expiresAt", "type": "uint256", "internalType": "uint256" },
+      { "name": "status", "type": "uint8", "internalType": "uint8" },
+      { "name": "accepter", "type": "address", "internalType": "address" },
+      { "name": "winner", "type": "address", "internalType": "address" },
+      { "name": "roomCode", "type": "string", "internalType": "string" }
+    ],
+    "constant": true,
+    "signature": "0xec7dd7bb",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getOrderIdByRoomCode",
+    "type": "function",
+    "inputs": [
+      { "name": "_roomCode", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "constant": true,
+    "signature": "0x8311d4c7",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getRoomCodeByOrderId",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
+    "constant": true,
+    "signature": "0x37005ad4",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getRoomCodeResultType",
+    "type": "function",
+    "inputs": [
+      { "name": "_roomCode", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [{ "name": "", "type": "uint8", "internalType": "uint8" }],
+    "constant": true,
+    "signature": "0x8343c82c",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getTokenGlobalStats",
+    "type": "function",
+    "inputs": [
+      { "name": "_token", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      { "name": "totalVolume", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalGames", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "totalFeesCollected",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0xf7423631",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getUserGlobalStats",
+    "type": "function",
+    "inputs": [
+      { "name": "_user", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      {
+        "name": "totalPlayedGames",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "totalWon", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalLost", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalDraw", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "totalCreatedOrders",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalCompletedOrders",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0x5ac8eac0",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getUserTokenStats",
+    "type": "function",
+    "inputs": [
+      { "name": "_user", "type": "address", "internalType": "address" },
+      { "name": "_token", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      { "name": "totalVolume", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalEarned", "type": "uint256", "internalType": "uint256" },
+      { "name": "gamesPlayed", "type": "uint256", "internalType": "uint256" },
+      { "name": "gamesWon", "type": "uint256", "internalType": "uint256" },
+      { "name": "gamesLost", "type": "uint256", "internalType": "uint256" }
+    ],
+    "constant": true,
+    "signature": "0x8fdc9600",
+    "stateMutability": "view"
+  },
+  {
+    "name": "getWinnerDetails",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      { "name": "winner", "type": "address", "internalType": "address" },
+      { "name": "resolved", "type": "bool", "internalType": "bool" },
+      { "name": "proof", "type": "string", "internalType": "string" }
+    ],
+    "constant": true,
+    "signature": "0x4a91e536",
+    "stateMutability": "view"
+  },
+  {
+    "name": "globalStats",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "allTimeGamesHosted",
+        "type": "uint256",
+        "value": {
+          "0": "0",
+          "1": "0",
+          "2": "0",
+          "3": "0",
+          "4": "0",
+          "5": "0",
+          "allTimeGamesHosted": "0",
+          "totalRevenueVolume": "0",
+          "allTimeGamesExpired": "0",
+          "allTimeGamesCancelled": "0",
+          "allTimeGamesCompleted": "0",
+          "totalProfitsGenerated": "0"
+        },
+        "internalType": "uint256"
+      },
+      {
+        "name": "allTimeGamesCompleted",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "allTimeGamesExpired",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "allTimeGamesCancelled",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalRevenueVolume",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalProfitsGenerated",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0xe4dc4efc",
+    "stateMutability": "view"
+  },
+  {
+    "name": "hostFeeWallet",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "value": "0xEe4B5bb0FfA3bae8A1F6EAA8291A668693e52f6e",
+        "internalType": "address"
+      }
+    ],
+    "constant": true,
+    "signature": "0x0155f0a2",
+    "stateMutability": "view"
+  },
+  {
+    "name": "isGameDraw",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "constant": true,
+    "signature": "0x63ce8da3",
+    "stateMutability": "view"
+  },
+  {
+    "name": "isRoomCodeDraw",
+    "type": "function",
+    "inputs": [
+      { "name": "_roomCode", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "constant": true,
+    "signature": "0xf1481d8c",
+    "stateMutability": "view"
+  },
+  {
+    "name": "isTokenSupported",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "constant": true,
+    "signature": "0x75151b63",
+    "stateMutability": "view"
+  },
+  {
+    "name": "isVerifiedWinner",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" },
+      { "name": "_claimant", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "constant": true,
+    "signature": "0xe1aa3237",
+    "stateMutability": "view"
+  },
+  {
+    "name": "orderCounter",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint256", "value": "1", "internalType": "uint256" }
+    ],
+    "constant": true,
+    "signature": "0xb789bf52",
+    "stateMutability": "view"
+  },
+  {
+    "name": "orderIdToRoomCode",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
+    "constant": true,
+    "signature": "0xf5514221",
+    "stateMutability": "view"
+  },
+  {
+    "name": "owner",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "value": "0xEe4B5bb0FfA3bae8A1F6EAA8291A668693e52f6e",
+        "internalType": "address"
+      }
+    ],
+    "constant": true,
+    "signature": "0x8da5cb5b",
+    "stateMutability": "view"
+  },
+  {
+    "name": "removeAdmin",
+    "type": "function",
+    "inputs": [
+      { "name": "_admin", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "signature": "0x1785f53c",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "removeSupportedToken",
+    "type": "function",
+    "inputs": [
+      { "name": "_token", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "signature": "0x76319190",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "roomCodeToOrderId",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "string", "internalType": "string" }],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "constant": true,
+    "signature": "0x41ff7bbc",
+    "stateMutability": "view"
+  },
+  {
+    "name": "supportedTokens",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "constant": true,
+    "signature": "0xc6255626",
+    "stateMutability": "view"
+  },
+  {
+    "name": "tokenGlobalStats",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [
+      { "name": "totalVolume", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalGames", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "totalFeesCollected",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0x508d3741",
+    "stateMutability": "view"
+  },
+  {
+    "name": "tokenMinimumBet",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "constant": true,
+    "signature": "0xe14d87c3",
+    "stateMutability": "view"
+  },
+  {
+    "name": "transferOwnership",
+    "type": "function",
+    "inputs": [
+      { "name": "_newOwner", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "signature": "0xf2fde38b",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "updateGameServer",
+    "type": "function",
+    "inputs": [
+      { "name": "_newGameServer", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "signature": "0x50cc4103",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "updateHostFeeWallet",
+    "type": "function",
+    "inputs": [
+      { "name": "_newWallet", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "signature": "0xf4dd3ae5",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "userGlobalStats",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [
+      {
+        "name": "totalPlayedGames",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "totalWon", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalLost", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalDraw", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "totalCreatedOrders",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalCompletedOrders",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "constant": true,
+    "signature": "0xaeb1cbf0",
+    "stateMutability": "view"
+  },
+  {
+    "name": "userTokenStats",
+    "type": "function",
+    "inputs": [
+      { "name": "", "type": "address", "internalType": "address" },
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      { "name": "totalVolume", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalEarned", "type": "uint256", "internalType": "uint256" },
+      { "name": "gamesPlayed", "type": "uint256", "internalType": "uint256" },
+      { "name": "gamesWon", "type": "uint256", "internalType": "uint256" },
+      { "name": "gamesLost", "type": "uint256", "internalType": "uint256" }
+    ],
+    "constant": true,
+    "signature": "0xac60bbca",
+    "stateMutability": "view"
+  },
+  {
+    "name": "winners",
+    "type": "function",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "constant": true,
+    "signature": "0xa2fb1175",
+    "stateMutability": "view"
+  },
+  {
+    "name": "withdrawFromExpiredOrder",
+    "type": "function",
+    "inputs": [
+      { "name": "_orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "signature": "0xc6be1981",
+    "stateMutability": "nonpayable"
+  }
+]

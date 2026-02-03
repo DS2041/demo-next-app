@@ -1,0 +1,40 @@
+@import "./fonts.css";
+
+@import '../css/internal.css';
+@import '../css/post.css';
+@import '../css/prism.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Force the progress bar color */
+#nprogress .bar {
+  background: #26A17B !important;
+  /* Your desired color */
+  height: 5px !important;
+  /* Adjust thickness */
+}
+
+/* Ensure the progress bar shadow is also colored */
+#nprogress .peg {
+  box-shadow: 0 0 10px #26A17B, 0 0 5px #26A17B !important;
+}
+
+/* Prevent Tailwind from overriding */
+#nprogress {
+  pointer-events: none !important;
+}
+
+.no-scrollbar::-webkit-inner-spin-button,
+.no-scrollbar::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-scrollbar {
+  appearance: textfield;
+  /* Ensures only numbers are accepted but removes scrollbar */
+  overflow: hidden;
+  line-height: normal;
+}

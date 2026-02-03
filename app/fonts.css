@@ -1,0 +1,65 @@
+@font-face {
+    font-family: "covik-sans-mono";
+    src: url("/fonts/covik-sans-mono/N400.woff2") format("woff2"),
+        url("/fonts/covik-sans-mono/N400.woff") format("woff"),
+        url("/fonts/covik-sans-mono/N400.otf") format("opentype");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "elza";
+    src: url("/fonts/elza/normal/500/N500.woff2") format("woff2"),
+        url("/fonts/elza/normal/500/N500.woff") format("woff"),
+        url("/fonts/elza/normal/500/N500.otf") format("opentype");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "elza";
+    src: url("/fonts/elza/italic/400/I400.woff2") format("woff2"),
+        url("/fonts/elza/italic/400/I400.woff") format("woff"),
+        url("/fonts/elza/italic/400/I400.otf") format("opentype");
+    font-display: swap;
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "elza";
+    src: url("/fonts/elza/normal/400/N400.woff2") format("woff2"),
+        url("/fonts/elza/normal/400/N400.woff") format("woff"),
+        url("/fonts/elza/normal/400/N400.otf") format("opentype");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "elza";
+    src: url("/fonts/elza/normal/600/N600.woff2") format("woff2"),
+        url("/fonts/elza/normal/600/N600.woff") format("woff"),
+        url("/fonts/elza/normal/600/N600.otf") format("opentype");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 600;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "roc-grotesk-variable";
+    src: url("/fonts/roc-grotesk-variable/400/N400.woff2") format("woff2"),
+        url("/fonts/roc-grotesk-variable/400/N400.woff") format("woff"),
+        url("/fonts/roc-grotesk-variable/400/N400.otf") format("opentype");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+}

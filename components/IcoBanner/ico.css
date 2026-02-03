@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* shimmer keyframes */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* button shimmer effect */
+  .btn-shimmer {
+    position: relative;
+    background: linear-gradient(
+      110deg,
+      #000000 20%,
+      #5c5a5a 40%,   /* golden stripe */
+      #000000 60%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 18s linear infinite;
+    color: #ffffff; /* keep text black */
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  /* optional: small hover scale effect */
+  .btn-shimmer:hover {
+    transform: scale(1.03);
+  }
+}
