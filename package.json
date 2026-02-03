@@ -7,7 +7,7 @@
     "dev:client": "next dev",
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run dev:server\" \"npm run dev:client\"",
     "build": "next build",
-    "start": "node dist/server.js",
+    "start": "NODE_ENV=production node dist/server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -80,4 +80,5 @@
     "typescript": "^5"
   }
 }
+
 
